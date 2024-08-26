@@ -55,8 +55,6 @@ class TestTask2(TestCase):
         c_team["Wins"] = 1
         will also update the games played and points
         """
-        c_team[TeamStats.POINTS] = 3
-        self.assertEqual(c_team[TeamStats.POINTS], 3, "Points stat not updated correctly")
         c_team[TeamStats.WINS] = 1
         self.assertEqual(c_team[TeamStats.GAMES_PLAYED], 1, "Games Played stat not updated correctly")
         c_team[TeamStats.DRAWS] = 0

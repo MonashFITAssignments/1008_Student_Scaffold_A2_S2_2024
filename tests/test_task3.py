@@ -44,7 +44,7 @@ class TestTask3(TestCase):
         for i, player_stat in enumerate(PlayerStats):
             self.step_table[player_stat.value] = i
             self.assertEqual(self.step_table[player_stat.value], i, f"Player stat {player_stat.name} not set to {i}")
-        self.assertEqual(len(self.step_table), len(PlayerStats), f"Wrong length: expected {len(PlayerStats)}, got {len(self.perfect_table)}")
+        self.assertEqual(len(self.step_table), len(PlayerStats), f"Wrong length: expected {len(PlayerStats)}, got {len(self.step_table)}")
 
     @number("3.5")
     @visibility(visibility.VISIBILITY_SHOW)
@@ -55,7 +55,7 @@ class TestTask3(TestCase):
         for i, player_stat in enumerate(PlayerStats):
             del self.step_table[player_stat.value]
             self.assertRaises(KeyError, lambda: self.step_table[player_stat.value])
-            self.assertEqual(len(self.step_table), len(PlayerStats) - i - 1, f"Wrong length: expected {len(PlayerStats) - i - 1}, got {len(self.perfect_table)}")
+            self.assertEqual(len(self.step_table), len(PlayerStats) - i - 1, f"Wrong length: expected {len(PlayerStats) - i - 1}, got {len(self.step_table)}")
 
     @number("3.6")
     @visibility(visibility.VISIBILITY_SHOW)
@@ -73,4 +73,4 @@ class TestTask3(TestCase):
             for j in range(i + 1, len(lookup_table)):
                 self.assertEqual(self.step_table[lookup_table[j]], lookup_table[j], f"Letter not found after deletion")
 
-            self.assertEqual(len(self.step_table), len(lookup_table) - i - 1, f"Wrong length: expected {len(PlayerStats) - i - 1}, got {len(self.perfect_table)}")
+            self.assertEqual(len(self.step_table), len(lookup_table) - i - 1, f"Wrong length: expected {len(PlayerStats) - i - 1}, got {len(self.step_table)}")
