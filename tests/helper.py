@@ -8,7 +8,7 @@ a 0 for approach and test case marks.
 
 """
 from copy import deepcopy
-from typing import TypeVar
+from typing import TypeVar, Union
 
 from data_structures.aset import ASet
 from data_structures.bset import BSet
@@ -23,11 +23,11 @@ from hashy_perfection_table import HashyPerfectionTable
 from hashy_step_table import HashyStepTable
 
 T = TypeVar('T')
-POSSIBLE_ADT_TYPES = (ArrayR | ASet | BSet | HashTableSeparateChaining | HashyPerfectionTable | HashyStepTable |
-                      LinearProbeTable | LinkedList | LinkedQueue | LinkedStack)
+POSSIBLE_ADT_TYPES = Union[ArrayR, ASet, BSet, HashTableSeparateChaining, HashyPerfectionTable, HashyStepTable,
+                           LinearProbeTable, LinkedList, LinkedQueue, LinkedStack]
 
 
-def take_out_from_adt(adt: POSSIBLE_ADT_TYPES) -> ArrayR[T] | None:
+def take_out_from_adt(adt: POSSIBLE_ADT_TYPES) -> Union[ArrayR[T], None]:
     """
     Take out n elements from the ADT
     """
@@ -37,43 +37,43 @@ def take_out_from_adt(adt: POSSIBLE_ADT_TYPES) -> ArrayR[T] | None:
     output: ArrayR[T] = ArrayR(len(adt))
 
     # Some of the below methods mutate the ADT so we will make a copy of the ADT
-    match adt:
-        case LinkedQueue():
-            adt: LinkedQueue = deepcopy(adt)
-            for index in range(len(adt)):
-                output[index] = adt.serve()
+    adt_type = type(adt)
+    if adt_type == LinkedQueue:
+        adt: LinkedQueue = deepcopy(adt)
+        for index in range(len(adt)):
+            output[index] = adt.serve()
 
-        case LinkedStack():
-            adt: LinkedStack = deepcopy(adt)
-            for index in range(len(adt)):
-                output[index] = adt.pop()
+    elif adt_type == LinkedStack:
+        adt: LinkedStack = deepcopy(adt)
+        for index in range(len(adt)):
+            output[index] = adt.pop()
 
-        case LinkedList() | ArrayR():
-            for index in range(len(adt)):
-                output[index] = adt[index]
+    elif adt_type in [LinkedList, ArrayR]:
+        for index in range(len(adt)):
+            output[index] = adt[index]
 
-        case LinearProbeTable() | HashTableSeparateChaining() | HashyPerfectionTable() | HashyStepTable():
-            values: list[T] = adt.values()
-            for index in range(len(adt)):
-                output[index] = values[index]
+    elif adt_type in [LinearProbeTable, HashTableSeparateChaining, HashyPerfectionTable, HashyStepTable]:
+        values: list[T] = adt.values()
+        for index in range(len(adt)):
+            output[index] = values[index]
 
-        case ArraySortedList():
-            for index in range(len(adt)):
-                output[index] = adt[index]
+    elif adt_type == ArraySortedList:
+        for index in range(len(adt)):
+            output[index] = adt[index]
 
-        case ASet():
-            for index in range(len(adt)):
-                output[index] = adt.array[index]
+    elif adt_type == ASet:
+        for index in range(len(adt)):
+            output[index] = adt.array[index]
 
-        case BSet():
-            i: int = 0
-            for item in range(1, int.bit_length(adt.elems) + 1):
-                if item in adt:
-                    output[i] = item
-                    i += 1
+    elif adt_type == BSet:
+        i: int = 0
+        for item in range(1, int.bit_length(adt.elems) + 1):
+            if item in adt:
+                output[i] = item
+                i += 1
 
-        case _:
-            raise ValueError("Invalid ADT type")
+    else:
+        raise ValueError("Invalid ADT type")
 
     return output
 
@@ -135,8 +135,8 @@ def test_hash_table(hash_table_class) -> None:
     # print(take_out_n_from_adt(hash_table, 5))
     # Test the hash table is not modified
     for key, value in expected:
-        assert hash_table[key] == value, f"The hash table has been modified. Expected {
-            value}, got {hash_table[key]} at key {key}"
+        assert hash_table[key] == value, f"The hash table has been modified. "\
+            "Expected {value}, got {hash_table[key]} at key {key}"
     print(f"{hash_table_class.__name__} test passed")
 
 def test_array_sorted_list() -> None:

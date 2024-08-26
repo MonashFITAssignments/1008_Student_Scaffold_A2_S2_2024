@@ -4,7 +4,7 @@ __author__ = 'Brendon Taylor'
 __since__ = '22/08/2024'
 
 from data_structures.referential_array import ArrayR
-from typing import Generic, TypeVar
+from typing import Generic, Union, TypeVar
 
 K = TypeVar('K')
 V = TypeVar('V')
@@ -27,7 +27,7 @@ class HashyPerfectionTable(Generic[K, V]):
         Initialise the Hash Table.
         Note: Our default table size 13, if you increase it to 19, you will not get full marks for approach.
         """
-        self.array: ArrayR[tuple[K, V] | None] = ArrayR(13)
+        self.array: ArrayR[Union[tuple[K, V], None]] = ArrayR(13)
         self.count: int = 0
 
     def hash(self, key: K) -> int:

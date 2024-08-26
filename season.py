@@ -3,7 +3,7 @@ from data_structures.bset import BSet
 from data_structures.referential_array import ArrayR
 from dataclasses import dataclass
 from team import Team
-from typing import Generator
+from typing import Generator, Union
 
 
 @dataclass
@@ -156,13 +156,13 @@ class Season:
         """
         raise NotImplementedError
 
-    def delay_week_of_games(self, orig_week: int, new_week: int | None = None) -> None:
+    def delay_week_of_games(self, orig_week: int, new_week: Union[int, None] = None) -> None:
         """
         Delay a week of games from one week to another.
 
         Args:
             orig_week (int): The original week to move the games from.
-            new_week (int | None): The new week to move the games to. If this is None, it moves the games to the end of the season.
+            new_week (Union[int, None]): The new week to move the games to. If this is None, it moves the games to the end of the season.
 
         Complexity:
             Best Case Complexity:
@@ -170,7 +170,7 @@ class Season:
         """
         raise NotImplementedError
 
-    def get_next_game(self) -> Generator[Game] | None:
+    def get_next_game(self) -> Union[Generator[Game], None]:
         """
         Gets the next game in the season.
 
@@ -184,12 +184,12 @@ class Season:
         """
         raise NotImplementedError
 
-    def get_leaderboard(self) -> ArrayR[ArrayR[int | str]]:
+    def get_leaderboard(self) -> ArrayR[ArrayR[Union[int, str]]]:
         """
         Generates the final season leaderboard.
 
         Returns:
-            ArrayR(ArrayR[ArrayR[int | str]]):
+            ArrayR(ArrayR[ArrayR[Union[int, str]]]):
                 Outer array represents each team in the leaderboard
                 Inner array consists of 10 elements:
                     - Team name (str)

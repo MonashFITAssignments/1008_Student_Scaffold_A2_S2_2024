@@ -10,6 +10,7 @@ from player import Player
 from random_gen import RandomGen
 from season import Season
 from team import Team
+from typing import Union
 
 
 class Roster:
@@ -42,7 +43,7 @@ class Roster:
         full_roster: list[Player] = []
         taken_names: BSet = BSet()
         for i in range(Constants.TEAM_MAX_PLAYERS * Constants.MAX_NUM_TEAMS):
-            player_name: str | None = None
+            player_name: Union[str, None] = None
             while player_name is None:
                 player_no: int = RandomGen.randint(1, len(cls.PLAYER_NAMES))
                 if player_no not in taken_names:
@@ -73,7 +74,7 @@ class Roster:
 
 
 class TestTask5(TestCase):
-    def __verify_results(self, expected_results: list[list[str | int | list]]) -> None:
+    def __verify_results(self, expected_results: list[list[Union[str, int, list]]]) -> None:
         for row_no, row in enumerate(self.season.get_leaderboard()):
             for cell_no, cell in enumerate(row):
                 if cell_no == 9:
@@ -85,7 +86,7 @@ class TestTask5(TestCase):
 
     def setUp(self) -> None:
         RandomGen.set_seed(123)
-        self.season: Season | None = None
+        self.season: Union[Season, None] = None
 
     @number("5.1")
     @visibility(visibility.VISIBILITY_SHOW)
@@ -103,7 +104,7 @@ class TestTask5(TestCase):
         self.season = Season(teams)
         self.season.simulate_season()
 
-        expected_results: list[list[str | int | list[GameResult]]] = [
+        expected_results: list[list[Union[str, int, list[GameResult]]]] = [
             ['Badgers',     6, 11, 3, 2, 1, 12,  8,  4, [GameResult.DRAW, GameResult.WIN,  GameResult.WIN,  GameResult.WIN,  GameResult.LOSS]],
             ['Blitz', 	    6, 10, 3, 1, 2, 10,  8,  2, [GameResult.WIN,  GameResult.WIN,  GameResult.LOSS, GameResult.WIN,  GameResult.LOSS]],
             ['Ferguson',    6,  7, 2, 1, 3, 10, 11, -1, [GameResult.LOSS, GameResult.LOSS, GameResult.WIN,  GameResult.LOSS, GameResult.WIN]],

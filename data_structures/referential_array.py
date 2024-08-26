@@ -18,7 +18,7 @@ __author__ = "Julian Garcia for the __init__ code, Maria Garcia de la Banda for 
 __docformat__ = 'reStructuredText'
 
 from ctypes import py_object
-from typing import Generic, TypeVar
+from typing import Generic, Union, TypeVar
 
 T = TypeVar('T')
 
@@ -55,7 +55,7 @@ class ArrayR(Generic[T]):
         self.array[index] = value
 
     @classmethod
-    def from_list(cls, lst: list) -> ArrayR | None:
+    def from_list(cls, lst: list) -> Union[ArrayR, None]:
         """ Creates an ArrayR from a list
         :complexity: O(n) where n is the length of the list
         """

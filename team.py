@@ -2,7 +2,7 @@ from __future__ import annotations
 from data_structures.referential_array import ArrayR
 from constants import GameResult, PlayerPosition, PlayerStats, TeamStats
 from player import Player
-from typing import Collection, TypeVar
+from typing import Collection, Union, TypeVar
 
 T = TypeVar("T")
 
@@ -85,13 +85,13 @@ class Team:
         """
         raise NotImplementedError
 
-    def get_players(self, position: PlayerPosition | None = None) -> Collection[Player] | None:
+    def get_players(self, position: Union[PlayerPosition, None] = None) -> Union[Collection[Player], None]:
         """
         Returns the players of the team that play in the specified position.
         If position is None, it should return ALL players in the team.
         You may assume the position will always be valid.
         Args:
-            position (PlayerPosition): The position of the players to return
+            position (Union[PlayerPosition, None]): The position of the players to return
 
         Returns:
             Collection[Player]: The players that play in the specified position
@@ -120,7 +120,7 @@ class Team:
         """
         raise NotImplementedError
 
-    def get_last_five_results(self) -> Collection[GameResult] | None:
+    def get_last_five_results(self) -> Union[Collection[GameResult], None]:
         """
         Returns the last five results of the team.
         If the team has played less than five games,

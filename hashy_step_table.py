@@ -7,7 +7,7 @@ __author__ = 'Jackson Goerner'
 __since__ = '07/02/2023'
 
 from data_structures.referential_array import ArrayR
-from typing import TypeVar, Generic
+from typing import Generic, TypeVar, Union
 
 K = TypeVar('K')
 V = TypeVar('V')
@@ -45,7 +45,7 @@ class HashyStepTable(Generic[K, V]):
         if sizes is not None:
             self.TABLE_SIZES = sizes
         self.size_index = 0
-        self.array: ArrayR[tuple[K, V] | None] = ArrayR(self.TABLE_SIZES[self.size_index])
+        self.array: ArrayR[Union[tuple[K, V], None]] = ArrayR(self.TABLE_SIZES[self.size_index])
         self.count = 0
 
     def hash(self, key: K) -> int:

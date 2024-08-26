@@ -1,11 +1,11 @@
 from __future__ import annotations
-from typing import TypeVar, List
 from data_structures.referential_array import ArrayR
+from typing import List, TypeVar, Union
 
 T = TypeVar("T")
 
 
-def merge(list1: List[T] | ArrayR[T], list2: List[T] | ArrayR[T], key=lambda x: x) -> List[T]:
+def merge(list1: Union[List[T], ArrayR[T]], list2: Union[List[T], ArrayR[T]], key=lambda x: x) -> List[T]:
     """
     Merges two sorted lists into one larger sorted list,
     containing all elements from the smaller lists.
@@ -36,7 +36,7 @@ def merge(list1: List[T] | ArrayR[T], list2: List[T] | ArrayR[T], key=lambda x: 
     return new_list
 
 
-def mergesort(my_list: List[T] | ArrayR, key=lambda x: x) -> List[T]:
+def mergesort(my_list: Union[List[T], ArrayR], key=lambda x: x) -> List[T]:
     """
     Sort a list using the mergesort operation.
 
