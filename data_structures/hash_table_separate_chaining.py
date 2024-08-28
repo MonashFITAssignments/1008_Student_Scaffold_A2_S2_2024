@@ -58,12 +58,12 @@ class HashTableSeparateChaining(Generic[T]):
 
         for index, item in enumerate(self.table[position]):
             if item[0] == key:
-                self.table[position].delete_at_index(index)
-                self.count -= 1
-
-                if len(self.table[position]) == 0:
+                if len(self.table[position]) <= 1:
                     self.table[position] = None
+                else:
+                    self.table[position].delete_at_index(index)
 
+                self.count -= 1
                 return
 
         raise KeyError(key)
