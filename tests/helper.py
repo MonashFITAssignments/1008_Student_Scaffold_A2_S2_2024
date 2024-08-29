@@ -136,7 +136,7 @@ def test_hash_table(hash_table_class) -> None:
     # Test the hash table is not modified
     for key, value in expected:
         assert hash_table[key] == value, f"The hash table has been modified. "\
-            "Expected {value}, got {hash_table[key]} at key {key}"
+            f"Expected {value}, got {hash_table[key]} at key {key}"
     print(f"{hash_table_class.__name__} test passed")
 
 def test_array_sorted_list() -> None:
