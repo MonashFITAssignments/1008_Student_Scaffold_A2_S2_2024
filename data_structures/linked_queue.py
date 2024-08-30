@@ -37,7 +37,7 @@ class LinkedQueue(Queue[T]):
         # Case 2: Non Empty queue
         # Add to the rear
         new_node = Node(item)
-        self.rear.next = new_node
+        self.rear.link = new_node
         self.rear = new_node
         self.length += 1
 
@@ -59,7 +59,7 @@ class LinkedQueue(Queue[T]):
 
         # Case 2: Multiple elements in the queue
         item = self.front.item
-        self.front = self.front.next
+        self.front = self.front.link
         self.length -= 1
         return item
 
@@ -128,7 +128,7 @@ def test_linked_queue() -> None:
     assert sample_lq.peek() == p1
     assert len(sample_lq) == 1
     assert sample_lq.peek_node().item == p1
-    assert sample_lq.peek_node().next is None
+    assert sample_lq.peek_node().link is None
 
     sample_lq.append(p2)
     assert sample_lq.peek() == p1
