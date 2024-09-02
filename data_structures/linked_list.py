@@ -105,7 +105,7 @@ class LinkedList(List[T]):
             new_node.link = self.head
             self.head = new_node
             
-        if index == len(self):
+        elif index == len(self):
             if len(self) == 0:
                 self.rear = new_node
             else:

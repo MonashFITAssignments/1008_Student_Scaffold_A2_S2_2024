@@ -88,6 +88,19 @@ class HashTableSeparateChaining(Generic[T]):
         self.table[position].append((key, data))
         self.count += 1
 
+    def __contains__(self, key: str) -> bool:
+        """
+        Checks to see if the given key is in the Hash Table
+
+        :complexity: See getitem.
+        """
+        try:
+            _ = self[key]
+        except KeyError:
+            return False
+        else:
+            return True
+
     def __getitem__(self, key: str) -> T:
         """
         Get the data associated with a key
