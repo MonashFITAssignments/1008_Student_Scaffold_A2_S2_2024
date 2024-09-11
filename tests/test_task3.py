@@ -24,7 +24,7 @@ class TestTask3(TestCase):
     @number("3.2")
     @visibility(visibility.VISIBILITY_SHOW)
     def test_perfect_hash_invalid(self):
-        for i, letter in enumerate(['A', 'B', 'C']):
+        for i, letter in enumerate(['Apple', 'Banana', 'Carrot']):
             self.assertRaises(KeyError, lambda: self.perfect_table[letter])
 
     @number("3.3")
